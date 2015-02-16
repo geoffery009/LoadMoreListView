@@ -3,8 +3,9 @@ Simply pull up to load more datas for ListView
 
 # Features
 1.User-defined FooterView<br>
-2.Can set linstener to load data thread
-
+2.Can set linstener to load data thread<br>
+![Alt text](images/Screenshot_1.png)
+![Alt text](images/Screenshot_2.png)
 
 
 # Usages
