@@ -1,4 +1,4 @@
-package com.tom.simpleloadmorelistview.view;
+package com.tom.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,7 +11,7 @@ import android.widget.ListView;
  * Pull up to load more data for ListView </br>上拉加载更多控件
  * 
  */
-public class LoadMoreListView extends ListView implements OnScrollListener {
+public class SimpleLoadMoreListView extends ListView implements OnScrollListener {
 
 	/**
 	 * allow to pull up to load more data
@@ -20,21 +20,21 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
 	private boolean CanLoadMore = true;
 
-	private onPullThreadStatusListener ThreadStatusListener;
-	private onLoadMoreListener LoadMoreListener;
+	private OnPullThreadStatusListener ThreadStatusListener;
+	private OnLoadMoreListener LoadMoreListener;
 	private View FooterView;
 
-	public LoadMoreListView(Context context) {
+	public SimpleLoadMoreListView(Context context) {
 		super(context);
 		init(context);
 	}
 
-	public LoadMoreListView(Context context, AttributeSet attrs) {
+	public SimpleLoadMoreListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
+	public SimpleLoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(context);
 	}
@@ -50,20 +50,20 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 		super.addFooterView(v);
 	}
 
-	public onPullThreadStatusListener getThreadStatusListener() {
+	public OnPullThreadStatusListener getThreadStatusListener() {
 		return ThreadStatusListener;
 	}
 
 	public void setThreadStatusListener(
-			onPullThreadStatusListener threadStatusListener) {
+			OnPullThreadStatusListener threadStatusListener) {
 		ThreadStatusListener = threadStatusListener;
 	}
 
-	public onLoadMoreListener getLoadMoreListener() {
+	public OnLoadMoreListener getLoadMoreListener() {
 		return LoadMoreListener;
 	}
 
-	public void setLoadMoreListener(onLoadMoreListener loadMoreListener) {
+	public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
 		LoadMoreListener = loadMoreListener;
 	}
 
@@ -150,7 +150,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 	/**
 	 * on listener to load data thread
 	 */
-	public static interface onPullThreadStatusListener {
+	public static interface OnPullThreadStatusListener {
 		/**
 		 * check the thread status for pulling up to load data
 		 * 
@@ -163,7 +163,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 	 * on listener to load more data
 	 * 
 	 */
-	public static interface onLoadMoreListener {
+	public static interface OnLoadMoreListener {
 		/**
 		 * load more data, also can set footer view status
 		 */

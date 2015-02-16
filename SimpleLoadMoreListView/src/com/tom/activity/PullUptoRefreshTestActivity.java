@@ -1,4 +1,4 @@
-package com.tom.simpleloadmorelistview;
+package com.tom.activity;
 
 import java.util.ArrayList;
 
@@ -14,10 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.tom.simpleloadmorelistview.view.LoadMoreListView;
-import com.tom.simpleloadmorelistview.view.LoadMoreListView.onLoadMoreListener;
-import com.tom.simpleloadmorelistview.view.LoadMoreListView.onPullThreadStatusListener;
+import com.tom.simpleloadmorelistview.R;
+import com.tom.view.SimpleLoadMoreListView;
+import com.tom.view.SimpleLoadMoreListView.OnLoadMoreListener;
+import com.tom.view.SimpleLoadMoreListView.OnPullThreadStatusListener;
 
 /**
  * 上拉加载更多测试
@@ -27,7 +27,7 @@ import com.tom.simpleloadmorelistview.view.LoadMoreListView.onPullThreadStatusLi
  * 
  */
 public class PullUptoRefreshTestActivity extends Activity implements
-		onLoadMoreListener, onPullThreadStatusListener {
+		OnLoadMoreListener, OnPullThreadStatusListener {
 	private RelativeLayout mFooterView;
 	private TextView mTextView;
 	private Thread mThread;
@@ -39,7 +39,7 @@ public class PullUptoRefreshTestActivity extends Activity implements
 	private int countPage = 3;
 	private int currentPage = 1;
 	private int toPage = 1;
-	private LoadMoreListView mListView;
+	private SimpleLoadMoreListView mListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class PullUptoRefreshTestActivity extends Activity implements
 	 * @return
 	 */
 	@SuppressLint("InflateParams")
-	public LoadMoreListView init(Context context) {
+	public SimpleLoadMoreListView init(Context context) {
 		// 1.添加数据源
 		mListItems = new ArrayList<String>();
 		for (int i = 1; i <= 15; i++) {
@@ -62,7 +62,7 @@ public class PullUptoRefreshTestActivity extends Activity implements
 		}
 
 		// 2.定义一个LoadMoreListView
-		mListView = new LoadMoreListView(context);
+		mListView = new SimpleLoadMoreListView(context);
 
 		// 3.添加自己的FooterView布局
 		mFooterView = (RelativeLayout) LayoutInflater.from(
