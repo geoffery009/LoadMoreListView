@@ -4,6 +4,8 @@ Simply pull up to load more datas for ListView
 # Features
 1.User-defined FooterView<br>
 2.Can set linstener to load data thread<br>
+3.Pagination-display
+
 ![Alt text](images/Screenshot_1.png)
 ![Alt text](images/Screenshot_2.png)
 
@@ -47,3 +49,8 @@ mListView.setThreadStatusListener(new OnPullThreadStatusListener() {
 ```
 4.If do not add `FooterView` on `SimpleLoadMoreListView` ,it is added a default `blank view` as FooterView.
 Set `FooterView` visible is `gone` if the thread is finished or load data error.
+
+5.If no more data to load ,set `SimpleLoadMoreListView.setCanLoadMore(boolean canLoadMore)` 
+```Java
+mListView.setCanLoadMore(false);
+```
