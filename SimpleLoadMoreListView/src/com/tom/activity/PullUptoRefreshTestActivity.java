@@ -1,7 +1,6 @@
 package com.tom.activity;
 
 import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -28,11 +27,19 @@ import com.tom.view.SimpleLoadMoreListView.OnPullThreadStatusListener;
  */
 public class PullUptoRefreshTestActivity extends Activity implements
 		OnLoadMoreListener, OnPullThreadStatusListener {
+	private static final String TAG = "PullUptoRefreshTestActivity";
+
 	private RelativeLayout mFooterView;
 	private TextView mTextView;
 	private Thread mThread;
+
+	private static final String savedInstanceState_key_data = "data";
+	private static final String savedInstanceState_key_countPage = "countPage";
+	private static final String savedInstanceState_key_currentPage = "currentPage";
+	private static final String savedInstanceState_key_toPage = "toPage";
+
 	// 源数据
-	private ArrayList<String> mListItems;
+	private static ArrayList<String> mListItems;
 	private ArrayAdapter<String> mAdapter;
 
 	// 设置总页数
@@ -41,10 +48,33 @@ public class PullUptoRefreshTestActivity extends Activity implements
 	private int toPage = 1;
 	private SimpleLoadMoreListView mListView;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (savedInstanceState != null && savedInstanceState.containsKey(savedInstanceState_key_data)) {
+			reStoreData(savedInstanceState);
+		} else {
+			initData();
+		}
+
 		setContentView(init(this));
+	}
+
+	private void reStoreData(Bundle savedInstanceState) {
+		countPage = savedInstanceState.getInt(savedInstanceState_key_countPage);
+		currentPage = savedInstanceState
+				.getInt(savedInstanceState_key_currentPage);
+		toPage = savedInstanceState.getInt(savedInstanceState_key_toPage);
+	}
+
+	private void initData() {
+		// 1.添加数据源
+		mListItems = new ArrayList<String>();
+		for (int i = 1; i <= 15; i++) {
+			mListItems.add("Item " + Integer.toString(i));
+		}
 	}
 
 	/**
@@ -55,12 +85,6 @@ public class PullUptoRefreshTestActivity extends Activity implements
 	 */
 	@SuppressLint("InflateParams")
 	public SimpleLoadMoreListView init(Context context) {
-		// 1.添加数据源
-		mListItems = new ArrayList<String>();
-		for (int i = 1; i <= 15; i++) {
-			mListItems.add("Item " + Integer.toString(i));
-		}
-
 		// 2.定义一个LoadMoreListView
 		mListView = new SimpleLoadMoreListView(context);
 
@@ -169,5 +193,14 @@ public class PullUptoRefreshTestActivity extends Activity implements
 		Message msg = mHandler.obtainMessage();
 		msg.what = LOAD_DATA_ERROR;
 		mHandler.sendMessage(msg);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putStringArrayList(savedInstanceState_key_data, mListItems);
+		outState.putInt(savedInstanceState_key_countPage, countPage);
+		outState.putInt(savedInstanceState_key_currentPage, currentPage);
+		outState.putInt(savedInstanceState_key_toPage, toPage);
+		super.onSaveInstanceState(outState);
 	}
 }
